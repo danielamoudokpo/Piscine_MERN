@@ -31,8 +31,6 @@ app.get('/', function(req, res){
 
         // res.send('your name is '+name+' you\'re '+age+' old' );
 
-        
-        
         console.log(name,age);
 
     
