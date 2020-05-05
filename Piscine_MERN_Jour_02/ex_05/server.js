@@ -1,6 +1,6 @@
 var express  = require('express');
 var fs = require ('fs');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 var MongoClient = require('mongodb').MongoClient;
@@ -10,38 +10,34 @@ const url = "mongodb://127.0.0.1:27042/";
 let dbName = 'mern-pool';
 let db
 
+var app = express();
+
 // connect
-MongoClient.connect(url,{ useUnifiedTopology: true },function (err, client){
+MongoClient.connect(url,{ useUnifiedTopology: false },function (err, client){
     if (err){
       console.error("Connection Failed");
     }else{
       console.log("Connected successfully");
     }
-     db = client.db(dbName);
-    client.close();
+    db = client.db(dbName);
 
-  })
+    // client.close();
 
-  var app = express();
-
-  app.use(bodyParser.json()); 
-app.use(express.static('public')); 
-app.use(bodyParser.urlencoded({ 
-    extended: true
-}));
+})
 
 
+    app.use(bodyParser.json()); 
+    app.use(express.static('public')); 
+    app.use(bodyParser.urlencoded({ extended: true}));
 
 app.set('view engine','ejs');
 
-  
-
     app.post('/sign_up',function (req,res) {
 
-        var lastname = req.query.lastname;
-        var firstname = req.query.firstname;
-        var email = req.query.email;
-        var phone = req.query.phone;
+        var lastname = req.body.lastname;
+        var firstname = req.body.firstname;
+        var email = req.body.email;
+        var phone = req.body.phone;
         // var validated = req.query.validated;
         // var admin = req.query.admin;
 
@@ -54,18 +50,22 @@ app.set('view engine','ejs');
             admin : true,
             
         }
+        // res.send();
         console.log(data);
         db.collection('students').insertOne(data,function(err, collection){ 
             if (err) throw err; 
             console.log("Record inserted Successfully"); 
-                  
+
+
         }); 
 
     })
 
 
+
+
+
     app.get('/',function(req,res) {
-        // var name = req.params.name;
        
 
         res.render('index'); 
