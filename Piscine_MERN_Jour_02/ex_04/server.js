@@ -1,23 +1,31 @@
 
-var express  = require('express');
-var app = express();
-fs = require('fs');
+const express = require('express');
+// const mongoose = require('mongoose');
+// const bodyParser = require('body-parser');
+const fs = require('fs');
+const app = express();
 
-app.set('view engine','ejs');
+var MongoClient = require('mongodb').MongoClient;
 
-app.engine('html', require('ejs').renderFile);
+const url = "mongodb://127.0.0.1:27042/";
 
-app.get('/name',function(req,res) {
-    var data = 'Hello Unknow';
-    res.render('index',{data}); 
-});
+// app.use(bodyParser.json());
+let dbName = 'mern-pool';
+// connect
+MongoClient.connect(url,{ useUnifiedTopology: true },function (err, client){
+    if (err){
 
-app.get('/name/:name',function(req,res) {
-    var name = req.params.name;
-    var data = 'Hello '+name;
-    res.render('index',{data}); 
-});
+      console.error("Connection Failed");
+    }else{
+      
+      console.log("Connected successfully");
 
+    }
+    const db = client.db(dbName);
 
-app.listen(4242);
+    client.close();
+
+  })
+
+  
 
