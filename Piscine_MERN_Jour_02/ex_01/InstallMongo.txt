@@ -1,0 +1,14 @@
+
+
+sudo apt install -y mongodb
+
+sudo systemctl status mongodb
+
+sudo systemctl stop mongodb
+
+sudo nano /etc/mongodb.conf(port=>27042)
+
+sudo systemctl restart mongodb
+
+mongo --port 27042
+
