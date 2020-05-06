@@ -1,7 +1,4 @@
-
 const express = require('express');
-// const mongoose = require('mongoose');
-// const bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
 
@@ -11,6 +8,7 @@ const url = "mongodb://127.0.0.1:27042/";
 
 // app.use(bodyParser.json());
 let dbName = 'mern-pool';
+
 // connect
 MongoClient.connect(url,{ useUnifiedTopology: true },function (err, client){
     if (err){
@@ -22,8 +20,6 @@ MongoClient.connect(url,{ useUnifiedTopology: true },function (err, client){
 
     }
     const db = client.db(dbName);
-
-    client.close();
 
   })
 

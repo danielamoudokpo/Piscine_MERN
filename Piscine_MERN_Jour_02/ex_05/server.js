@@ -12,11 +12,12 @@ let db
 
 var app = express();
 
-// connect
-MongoClient.connect(url,{ useUnifiedTopology: false },function (err, client){
+// connection
+MongoClient.connect(url,{ useUnifiedTopology: true }, function (err, client){
     if (err){
       console.error("Connection Failed");
     }else{
+
       console.log("Connected successfully");
     }
     db = client.db(dbName);
@@ -24,15 +25,18 @@ MongoClient.connect(url,{ useUnifiedTopology: false },function (err, client){
     // client.close();
 
 })
-
-
     app.use(bodyParser.json()); 
     app.use(express.static('public')); 
     app.use(bodyParser.urlencoded({ extended: true}));
 
-app.set('view engine','ejs');
+    app.set('view engine','ejs');
 
-    app.post('/sign_up',function (req,res) {
+    app.get('/',function(req,res) {
+        
+        res.render('index'); 
+    });
+
+    app.post('/sign_up', function (req,res) {
 
         var lastname = req.body.lastname;
         var firstname = req.body.firstname;
@@ -53,24 +57,16 @@ app.set('view engine','ejs');
         // res.send();
         console.log(data);
         db.collection('students').insertOne(data,function(err, collection){ 
-            if (err) throw err; 
-            console.log("Record inserted Successfully"); 
-
+            if (err){
+                console.error("Failed to save the collection"); 
+            } else{
+                console.log("Collection saved."); 
+            }
+            // return res.redirect('signup_success.html'); 
 
         }); 
 
     })
-
-
-
-
-
-    app.get('/',function(req,res) {
-       
-
-        res.render('index'); 
-    
-    });
 
 // app.use(bodyParser.json());
 app.listen(3000);

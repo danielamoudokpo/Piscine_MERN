@@ -1,0 +1,31 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "npmapp",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon sever.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel test",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "livereload": "^0.9.1",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.12",
+    "path": "^0.12.7",
+    "start-server": "0.0.4",
+    "stop-server": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}

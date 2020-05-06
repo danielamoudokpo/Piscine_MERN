@@ -51,7 +51,7 @@ db.createCollection( "students", {
 
 
 db.students.insert([
-   { _id: "1", lastname: "Amoudokpo", firstname: "kokou", admin: true, phone: "01 01 01 01 01", email: "daniel@gmail.com", validated: "validated" }
+   {  lastname: "udokpo", firstname: "kokou", admin: true, phone: "01 01 01 01 01", email: "daniel@gmail.com", validated: "validated" }
 ])
 
 
