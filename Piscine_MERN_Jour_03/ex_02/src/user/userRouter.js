@@ -16,16 +16,27 @@ const UserController = require("../user/userController");
         login = req.body.login
         email = req.body.email
         password = req.body.password
+        passwordConfirm = req.body.passwordConfirm
 
-        newUser = new User(
-            {
-                login : login,
-                email : email,
-                password : password,
-                type : false
-            }
-            
-        )
+        console.log(passwordConfirm);
+        
+        if (password == passwordConfirm) {
+            newUser = new User(
+                {
+                    login : login,
+                    email : email,
+                    password : password,
+                    type : false
+                }
+                
+            )
+        }else{
+
+            // res.locals.success = req.flash("sss success");
+            var data = "password not the same";
+            res.render('index',{data})
+        }
+
         UserController.send(newUser)
         return res.redirect('login'); 
     })
