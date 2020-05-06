@@ -32,13 +32,16 @@ const UserController = require("../user/userController");
             )
         }else{
 
-            // res.locals.success = req.flash("sss success");
             var data = "password not the same";
             res.render('index',{data})
         }
 
         UserController.send(newUser)
+
+        // res.sendStatus(200);
+
         return res.redirect('login'); 
+
     })
 
     router.get('/login',function (req,res) {
