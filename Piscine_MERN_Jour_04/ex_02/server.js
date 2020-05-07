@@ -21,10 +21,11 @@ app.use(bodyParser.json());
 // app.use(express.static('public')); 
 app.use(bodyParser.urlencoded({ extended: true}));
 
-
 UserController.connect(url,dbName);
 
     // use router for gGET AND POST '/USER'
 app.use('/user',users);
 
-app.listen(3000);
+app.listen(5000);
+
+
