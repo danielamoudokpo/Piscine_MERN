@@ -25,6 +25,8 @@ const UserController = require("../user/userController");
 
     router.post("/register", (req,res)=>{
 
+        // console.log(req.body);
+        
         login = req.body.login
         email = req.body.email
         password = req.body.password
@@ -39,12 +41,16 @@ const UserController = require("../user/userController");
                 let user = await db.collection('users').findOne({ 
                     email
                  });
-                    resolve(console.log(user));
+                    // resolve(console.log(user));
                 if (!user) {
                     // checkLogin = user.login;
                     // checkMail = user.email 
+                    // console.log([
+                    //     password, passwordConfirm
+                    // ]);
+                    
                     if ( password === passwordConfirm ) {
-                        newUser = new User(
+                       let newUser = new User(
                             {
                                 login : login,
                                 email : email,
@@ -52,26 +58,34 @@ const UserController = require("../user/userController");
                                 type : false
                             }
                         )
-
+                        console.log("test");
+                        
                         UserController.send(newUser)
                         
-                        resolve(res.redirect('login'));
+                        // resolve(res.redirect('login'));
+                        resolve(res.send('login'));
                     
                         }
                         else {
                             var data = " Password does't match ";                        
-                            reject(res.render('index',{data}))
+                            // res.status(401).send(data);
+                            res.send(data);
+
                         } 
                        
                 }else{
                     var data = "email or login already exist";
-                    reject(res.render('index',{data}))
+                    res.send(data);
+                    // res.status(401).send(data);
+
+
                 }
         
             }) 
         }else{
             var data = " login must be greater than 5";
-            res.render('index',{data})
+            res.send(data)
+            // res.render('index',{data})
         }
 
     })
@@ -90,11 +104,12 @@ const UserController = require("../user/userController");
         let result = await UserController.login(email,password)
 
         console.log(result);
-        var data ="dd";
+        var data ="";
         if (result === "ko") {
 
             data = " wrong email or password"
-            res.render('login',{data})
+            // res.render('login',{data})
+            res.send(data)
            
         }else{
             res.send("hello "+ result)
